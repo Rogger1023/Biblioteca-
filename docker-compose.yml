@@ -1,0 +1,46 @@
+version: '3'
+
+volumes:
+  biblioteca-postgres-data:
+  biblioteca-portainer-data:
+
+services:
+  web:
+    container_name: biblioteca-web
+    image: nginx:latest
+    ports:
+      - 80:8080
+    volumes:
+      - ./project:/var/www/app
+      - ./docker/web/site.conf:/etc/nginx/conf.d/site.conf
+
+  app:
+    container_name: biblioteca-app
+    build: docker/app/.
+    volumes:
+      - ./project:/var/www/app
+
+  postgres:
+    container_name: biblioteca-postgres
+    image: postgres:10.3
+    volumes:
+      - biblioteca-postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres/scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=biblioteca_dev
+      - POSTGRES_PASSWORD=laraveldocker
+      - POSTGRES_USER=postgres
+
+  portainer:
+    container_name: klickpost-portainer
+    image: portainer/portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - biblioteca-portainer-data:/data
