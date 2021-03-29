@@ -39,7 +39,7 @@ class UserController extends Controller
         $data = $request->validated();
         $user->update($data);
 
-        return redirect()->route('books.index');
+        return redirect()->route('users.index');
     }
 
     public function show(User $user)

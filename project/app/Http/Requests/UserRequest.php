@@ -11,7 +11,7 @@ class UserRequest extends FormRequest
         return [
             'name'=>'required|string|max:50',
             'email'=>'required|string|max:50',
-            'birthday'=>'required|date_format:Y-m-d'
+            'birthday'=>'required|date_format:Y-m-d|before:now'
         ];
     }
 }

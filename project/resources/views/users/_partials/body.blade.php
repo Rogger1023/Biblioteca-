@@ -1,8 +1,8 @@
 <td>{{ $user->id }}</td>
 <td>{{ $user->name }}</td>
-<td>{{ $user->birthday }}</td>
+<td>{{ date('d/m/Y', strtotime($user->birthday))}}</td>
 <td>{{ $user->email }}</td>
-<td>{{ $user->created_at }}</td>
+<td>{{ date('d/m/Y', strtotime( $user->created_at)) }}</td>
 <td>
     <a href="{{ route('users.show', $user->id) }}"
        class="btn btn-sm btn-primary"
