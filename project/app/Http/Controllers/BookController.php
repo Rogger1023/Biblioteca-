@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
+use App\Models\User;
 
 class BookController extends Controller
 {
@@ -15,20 +16,21 @@ class BookController extends Controller
 
     public function create()
     {
-        return view('books.create');
+        $users = User::orderBy('name','asc')->get(['name','id']);
+        return view('books.create',compact('users'));
     }
 
     public function store(BookRequest $request)
     {
         $data = $request->validated();
         Book::create($data);
-
         return redirect()->route('books.index');
     }
 
     public function edit(Book $book)
     {
-        return view('books.edit',compact('book'));
+        $users = User::orderBy('name','asc')->get(['name','id']);
+        return view('books.edit',compact('book','users'));
     }
 
     public function update(BookRequest $request, Book $book)
