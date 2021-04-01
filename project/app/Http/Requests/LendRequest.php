@@ -9,7 +9,8 @@ class LendRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => 'required|integer|exists:users,id',
+            'book_id' => 'required|integer|exists:books,id'
         ];
     }
 }

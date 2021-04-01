@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LendRequest;
-use App\Models\Lend;
+use App\Models\Book;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -11,42 +12,28 @@ class LendController extends Controller
 {
     public function index()
     {
-        $lends = Lend::all();
+        $lends = Book::query()->whereNotNull('user_id')->get();
         return view('lends.index',compact('lends'));
     }
 
     public function create()
     {
-        return view('lends.create');
+        $books = Book::query()->whereNull('user_id')->get(['id','title']);
+        $users = User::all();
+        return view('lends.create',compact('users','books'));
     }
 
     public function store(LendRequest $request)
     {
         $data = $request->validated();
-        Lend::create($data);
-    }
-
-    public function edit(Lend $lend)
-    {
-        return view('lends.edit',compact('lend'));
-    }
-
-    public function update(LendRequest $request,Lend $lend)
-    {
-        $data = $request->validated();
-        $lend ->update($data);
-
+        $book = Book::find($data['book_id']);
+        $book->update($data);
         return redirect()->route('lends.index');
     }
 
-    public function show(Lend $lend)
+    public function unlink(Book $lend)
     {
-        return view('lends.show',compact('lend'));
-    }
-
-    public function destroy(Lend $lend)
-    {
-        $lend->delete();
+        $lend->update(['user_id'=>null]);
         return redirect()->route('lends.index');
     }
 }
