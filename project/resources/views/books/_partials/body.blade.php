@@ -2,6 +2,7 @@
 <td>{{ $book->title }}</td>
 <td>{{ $book->description }}</td>
 <td>{{ $book->author }}</td>
+<td>{{ $book->employer->name}}</td>
 <td>{{ $book->created_at->format('d/m/Y H:i') }}</td>
 <td>
     <a href="{{ route('books.show', $book->id) }}"
