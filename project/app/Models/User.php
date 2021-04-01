@@ -21,5 +21,14 @@ class User extends Authenticatable
         'password',
         'birthday'
     ];
-    protected $dateFormat = 'd/m/Y';
+
+    public function employerBooks()
+    {
+        return $this->hasMany(Book::class, 'employer_id', 'id');
+    }
+
+    public function userBooks()
+    {
+        return $this->hasMany(Book::class, 'user_id', 'id');
+    }
 }

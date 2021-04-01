@@ -12,7 +12,8 @@ class BookRequest extends FormRequest
         return [
             'title'=>'required|string|max:50',
             'author' => 'required|string|max:50',
-            'description'=> 'nullable|string|max:255'
+            'description'=> 'nullable|string|max:255',
+            'employer_id'=>'required|integer|exists:users,id'
         ];
     }
 }

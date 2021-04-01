@@ -6,3 +6,4 @@
         <img class="mt-3" src="/img/ipad.png" width="500" alt="ipad">
     </div>
 @endsection
+
