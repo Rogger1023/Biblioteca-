@@ -22,3 +22,6 @@ Route::get('books/destroy/{book}', 'BookController@destroy')->name('books.destro
 
 Route::resource('users','UserController')->except('destroy');
 Route::get('users/destroy/{user}', 'UserController@destroy')->name('users.destroy');
+
+Route::resource('lends','LendController')->except('destroy');
+Route::get('lends/destroy/{lend}','LendController@destroy')->name('lends.destroy');
