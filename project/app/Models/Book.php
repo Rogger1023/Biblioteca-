@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $fillable = ['title', 'author', 'description','employer_id'];
+    protected $fillable = ['title', 'author', 'description','employer_id','user_id'];
 
     public function employer()
     {
